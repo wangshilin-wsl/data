@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rms.dao.RmDao">
+    <select id="findAll"  resultType="Rm">
+        select id,name,degree,school,hobby
+        from t_rm
+    </select>
+    <!--save-->
+    <insert id="save" parameterType="Rm" useGeneratedKeys="true" keyProperty="id">
+        insert into t_rm values (#{id},#{name},#{degree},#{school},#{hobby})
+    </insert>
+    <!--delete-->
+    <delete id="delete" parameterType="String">
+        delete from t_rm where  id=#{id}
+    </delete>
+    <select id="findOne"  resultType="Rm" parameterType="String">
+        select id,name,degree,school,hobby
+        from t_rm
+        where id=#{id}
+    </select>
+    <!--update-->
+    <update id="update" parameterType="Rm">
+        update t_rm set name=#{name},
+        degree=#{degree},
+        school=#{school},
+        hobby=#{hobby}
+        where id=#{id}
+    </update>
+</mapper>

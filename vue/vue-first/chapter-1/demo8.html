@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="vue">
+    <p>currentTime1:{{currentTime1()}}</p>
+    <p>currentTime2:{{currentTime2}}</p><!--currentTime2是一个属性不是方法-->
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+<script>
+    var vm=new Vue({
+        el:"#vue",
+        /*Model:数据*/
+        //data:属性
+        data: {
+            message: "hello,kuangshen"
+        },
+        methods:{
+            currentTime1 () {
+                return Date.now();//返回一个时间戳
+            }
+        },
+        computed:{//计算属性:methods,computed 方法名不能相同，重名之后只会调用methods方法
+            currentTime2 () {//走的缓存
+                this.message;//每次有操作才会更新缓存
+                return Date.now();//返回一个时间戳
+            }
+        }
+    });
+</script>
+</body>
+</html>

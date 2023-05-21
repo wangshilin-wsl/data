@@ -1,0 +1,8 @@
+# 系统级别的配置
+spring:
+  cloud:
+    config:
+      uri: http://127.0.0.1:3344
+      name: config-dept  #从git上读取资源的名称不需要后缀
+      profile: test
+      label: master #分支

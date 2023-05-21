@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>增加</title>
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnadd").click(function () {
+                if(checkAdd()){
+                    $.ajax({
+                        url:"/jsp/docust",
+                        type:"post",
+                        data:{op:"doadd",
+                            custname:$("#custname").val(),
+                            contacts:$("#contacts").val(),
+                            tel:$("#tel").val(),
+                            email:$("#email").val()
+                        },
+                        dataType:"json",
+                        success:function (data){
+                           if(data.result>0){
+                               location.href="cust_list.html";
+                           }else{
+                               alert(data.msg);
+                           }
+                        }
+                    });
+                }
+            });
+        });
+        function checkAdd() {
+            if($("#custname").val()==""){
+                alert("客户名不能为空！")
+                return false;
+            }
+            if($("#contacts").val()==""){
+                alert("联系人不能为空！")
+                return false;
+            }
+            if($("#tel").val()==""){
+                alert("电话不能为空！")
+                return false;
+            }
+            if($("#email").val()==""){
+                alert("邮箱不能为空！")
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+<form>
+    客户名：<input id="custname" type="text" name="custname">
+    <br>
+    联系人：<input id="contacts" type="text" name="contacts" >
+    <br>
+    电话：<input id="tel" type="text" name="tel" >
+    <br>
+    邮箱：<input id="email" type="text" name="email" >
+    <br>
+    <input  id="btnadd" type="button" value="添加">
+    <input type="button" value="重置">
+</form>
+</body>
+</html>

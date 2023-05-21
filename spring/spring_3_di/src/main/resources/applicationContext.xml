@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="student" class="pojo.Student">
+    <!--普通值的注入用value-->
+    <property name="name" value="王世林"/>
+    <!--引用类型的注入用ref-->
+    <property name="address" ref="address"/>
+    <!--数组注入-->
+    <property name="book">
+        <array>
+            <value>三国演义</value>
+            <value>红楼梦</value>
+            <value>水浒传</value>
+            <value>西游记</value>
+        </array>
+    </property>
+
+    <!--List注入-->
+    <property name="hobbys">
+        <list>
+            <value>听歌</value>
+            <value>敲代码</value>
+            <value>打游戏</value>
+            <value>看电影</value>
+        </list>
+    </property>
+    <!--Map注入-->
+    <property name="card">
+        <map>
+            <entry key="身份证" value="132131"/>
+            <entry key="卡号" value="80809"/>
+        </map>
+    </property>
+
+    <!--set注入-->
+    <property name="games">
+        <set>
+            <value>lol</value>
+            <value>pubg</value>
+        </set>
+    </property>
+
+    <!--null注入-->
+    <property name="wife">
+        <null></null>
+    </property>
+
+    <!--properties注入-->
+    <property name="info">
+        <props>
+            <prop key="driver">com</prop>
+            <prop key="url">nan</prop>
+            <prop key="pass">9789</prop>
+        </props>
+    </property>
+</bean>
+    <bean id="address" class="pojo.Address">
+    <property name="address" value="湖北省"/>
+    </bean>
+</beans>

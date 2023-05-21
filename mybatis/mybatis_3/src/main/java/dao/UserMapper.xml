@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个mapper(dao)接口-->
+<mapper namespace="dao.UserMapper">
+
+    <!--查询-->
+    <select id="getUserList" resultType="User">
+    select *
+    from mabatis.user
+  </select>
+    <select id="getUserById" resultType="User" parameterType="int">
+        select *
+        from mabatis.user
+        where id=#{id}
+    </select>
+    <insert id="addUser" parameterType="User">
+        insert into mabatis.user(id,name,pwd)
+        values (#{id},#{name},#{pwd})
+    </insert>
+
+
+    <update id="updateUser" parameterType="User">
+        update mabatis.user
+        set name=#{name},pwd=#{pwd}
+        where id=#{id}
+    </update>
+    <delete id="deleteUser" parameterType="int">
+        delete from mabatis.user
+        where id=#{id}
+    </delete>
+</mapper>

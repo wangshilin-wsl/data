@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>修改</title>
+  <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript">
+    //先获得需要修改的客户的id
+    //通过ajax请求要修改用户的数据到页面
+      $(document).ready(function () {
+          var custid=getCustId();
+          $.ajax({
+             url:"/jsp/docust",
+             type:"post",
+             data:{op:"update",custid:custid},
+              dataType:"json",
+              success: function (data) {
+                  $("#custname").val(data.custname);
+                  $("#contacts").val(data.contacts);
+                  $("#tel").val(data.tel);
+                  $("#email").val(data.email);
+                  $("#custid").val(data.custid);
+              }
+          });
+          $("#btnupdate").click(function () {
+              $.ajax({
+                  url:"/jsp/docust",
+                  type:"post",
+                  data:{op:"update1",custid:custid,
+                      custname: $("#custname").val() ,
+                      contacts: $("#contacts").val(),
+                      tel: $("#tel").val() ,
+                      email:   $("#email").val()
+                  },
+                  dataType:"json",
+                  success: function (data) {
+                      if(data.result>0){
+                          location.href="cust_list.html";
+                      }else{
+                          alert(data.msg);
+                      }
+                  }
+              });
+          });
+      });
+    function getCustId() {
+        var url=location.href;
+        var custid=url.substr(url.indexOf("=")+1);
+        return custid;
+    }
+  </script>
+</head>
+<body>
+<form>
+  <input type="text"  id="custid" name="custid"  hidden>
+    <br>
+    客户名：<input id="custname" type="text" name="custname" >
+    <br>
+    联系人：<input id="contacts" type="text" name="contacts" >
+    <br>
+    电话：<input id="tel" type="text" name="tel" >
+    <br>
+    邮箱：<input id="email" type="text" name="email">
+    <br>
+    <input  id="btnupdate" type="button" value="修改">
+    <input type="button" value="重置">
+</form>
+</body>
+</html>

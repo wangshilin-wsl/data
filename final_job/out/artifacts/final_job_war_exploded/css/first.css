@@ -1,0 +1,40 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+span{
+    margin-top: 10px;
+    width:100px;
+    text-align: right;
+    display: inline-block;
+}
+.error{
+    text-align: left;
+}
+body{
+    padding: 130px;
+    background-image: url("../image/timg1.jpg");
+}
+#registered{
+    font-weight: bold;
+    font-size: 35px;
+    color: burlywood;
+}
+#tishi{
+    margin-left: 20px;
+}
+.button{
+    background-color: aqua;
+    height:30px ;
+    width:50px;
+}
+#hh{
+    background-color: antiquewhite;
+    height:300px ;
+    width:400px;
+}
+.text{
+    height: 20px;
+    width:150px;
+    display: inline-block;
+}

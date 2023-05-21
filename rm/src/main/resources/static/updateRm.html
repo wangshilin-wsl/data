@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>update rm</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"
+			href="css/style.css" />
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="top_content">
+				<div id="header">
+					<div id="rightheader">
+						<p>
+							2009/11/20
+							<br />
+							<a href="javascript:;" @click="logout">安全退出</a>
+						</p>
+					</div>
+					<div id="topheader">
+						<h1 id="title">
+							<a href="/rmlist.html">main</a>
+						</h1>
+					</div>
+					<div id="navigation">
+					</div>
+				</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						update rm info:
+					</h1>
+					<form action="rmlist.html" method="post">
+						<table cellpadding="0" cellspacing="0" border="0"
+							class="form_table">
+							<tr>
+								<td valign="middle" align="right">
+									id:
+								</td>
+								<td valign="middle" align="left">
+									{{rm.id}}
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									name:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" v-model="rm.name" name="name" value="zhangshan"/>
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									degree:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" name="degree"  v-model="rm.degree"/>
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									school:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" v-model="rm.school" name="school" />
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									hobby:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" v-model="rm.hobby" name="hobby" />
+								</td>
+							</tr>
+						</table>
+						<p>
+							<input type="button" @click="editEmp" class="button" value="Confirm" />
+						</p>
+					</form>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+					ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/js/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script>
+    var app=new Vue({
+        el: '#wrap',
+        data: {
+            user: {//存放用户登录的信息
+                realname: ""
+            },
+			rm: {}
+        },
+        methods: {
+            //安全退出
+            logout(){
+                localStorage.removeItem("user");
+                location.href="/login.html";
+            },
+			//修改信息
+			editEmp(){
+                var formData = new FormData();
+                formData.append("id",this.rm.id);
+                formData.append("name",this.rm.name);
+                formData.append("degree",this.rm.degree);
+                formData.append("school",this.rm.school);
+                formData.append("hobby",this.rm.hobby);
+
+                axios({
+                    method: "post",
+                    url: "http://localhost:8989/rm/update",
+                    data: formData,
+                    headers: {
+                        'content-type': "multipart/form-data"
+                    }
+                }).then(res=>{
+                    console.log(res.data);
+                    if(res.data.state){
+                        if(window.confirm(res.data.msg+",点击确定跳转至首页!")) {
+                            location.href = "/rmlist.html";
+                        }
+                    }else{
+                        alert(res.data.msg);
+                    }
+                });
+			}
+        },
+        created(){//生命周期函数
+            var userString = localStorage.getItem("user");
+            if(userString!=null){
+                var user = JSON.parse(userString);
+                //console.log(user);
+                this.user=user;
+            }else{
+                alert("您尚未登录，点击确定跳转至登录界面！");
+                location.href="/login.html";
+            }
+            //获取id
+            var start= location.href.lastIndexOf("=");
+            var id = location.href.substring(start + 1);
+            console.log(id);
+            axios.get("http://localhost:8989/rm/findOne?id="+id).then(res=>{
+                console.log(res.data);
+                this.rm=res.data;
+            });
+        }
+
+    });
+</script>

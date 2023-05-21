@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsl.mapper.UserMapper">
+<!--查询所有的方法-->
+    <select id="findAll" resultType="User">
+        select id,name,bir,sex,address
+        from t_users
+    </select>
+    <!--保存用户-->
+    <insert id="save" parameterType="User">
+        insert into t_users values(#{id},#{name},#{bir},#{sex},#{address})
+    </insert>
+    <!--根据id删除用户-->
+    <delete id="delete" parameterType="String">
+        delete from t_users where id=#{id}
+    </delete>
+    <!--根据id修改用户信息-->
+    <update id="update" parameterType="User">
+        update t_users
+        set name=#{name},bir=#{bir},sex=#{sex},address=#{address}
+        where id=#{id}
+    </update>
+    <!--分页查询-->
+    <select id="findByPage" resultType="User">
+         select id,name,bir,sex,address
+        from t_users
+        limit #{start},#{rows}
+    </select>
+    <!--查询总条数-->
+    <select id="findTotals" resultType="Long">
+        select count(id) from t_users;
+    </select>
+</mapper>

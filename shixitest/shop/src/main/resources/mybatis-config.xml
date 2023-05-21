@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <typeAliases>
+       <package name="com.wsl.pojo" />
+    </typeAliases>
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 使用MySQL方言的分页 -->
+            <property name="helperDialect" value="mysql"/><!--如果使用mysql，这里value为mysql-->
+            <property name="pageSizeZero" value="true"/>
+        </plugin>
+    </plugins>
+   <!-- <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/shop?useSSL=true&amp;serverTimezone=UTC&amp;userUnicode=true&amp;charsetEncoding=utf-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+ <mappers>
+    <mapper resource="com/wsl/dao/UserinfoMapper.xml"/>
+     <mapper resource="com/wsl/dao/CategoryMapper.xml"/>
+     <mapper resource="com/wsl/dao/GoodsMapper.xml"/>
+     <mapper resource="com/wsl/dao/AdminMapper.xml"/>
+     <mapper resource="com/wsl/dao/KillGoodsMapper.xml"/>
+     <mapper resource="com/wsl/dao/OrderInfoMapper.xml"/>
+     <mapper resource="com/wsl/dao/KillOrderInfoMapper.xml"/>
+ </mappers>
+</configuration>

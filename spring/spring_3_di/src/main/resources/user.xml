@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--p命名空间的使用,通过set注入的-->
+    <bean id="user" class="pojo.User" p:name="王世林" p:age="18"/>
+    <!--c命名空间的使用，通过构造器注入的-->
+    <bean id="user2" class="pojo.User" c:name="王世林" c:age="18"/>
+</beans>

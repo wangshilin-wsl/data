@@ -1,0 +1,98 @@
+*{
+    margin: 0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+#header{
+    height: 80px;
+}
+#header .h_center{
+    width:1000px;
+    height: 80px;
+    margin: 0 auto;/*居中*/
+}
+#header .h_center img{
+    float: left;
+}
+#header .h_center p{
+    float: left;
+    text-align: center;
+    width:880px;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-left: 5px;
+    color: #6c6c6c;
+    background-color: #fef2f2;
+    border: 1px solid #ffb4ab;
+}
+#login_body{
+    height: 400px;
+    background-image: url("../image/login_bg.png");
+    background-size: 1100px 400px ;
+}
+#login_body .body_center{
+    width:1000px;
+    height: 400px;
+    margin: 0 auto;/*居中*/
+    position: relative;
+}
+#login_body .body_center .body_center_center{
+    height: 300px;
+    width: 300px;
+    position: absolute;/*子绝父相*/
+    right: 0px;
+    top: 47px;
+    background: rgba(255, 255, 255,0.8);
+    padding: 30px;
+}
+#login div{
+    margin-top: 20px;
+    height: 30px;
+}
+#login span{
+    display: inline-block;
+    height: 30px;
+    width:40px;
+    float: left;
+}
+#login .username span{
+    background-image: url("../image/userName_Icon.png");
+    background-size: 40px 30px;
+}
+#login .password span{
+    background-image: url("../image/password_Icon.png");
+    background-size: 40px 30px;
+}
+#login input{
+    display: inline-block;
+    width:200px;
+    height: 30px;
+    float: left;
+}
+#login .bt input{
+    margin: 10px;
+   background-color: #f40;
+    border: none;
+    width: 90px;
+    color: #fef2f2;
+    font-size: 15px;
+}
+#login .forget{
+    text-align: right;
+    margin-top: 50px;
+}
+a{
+    text-decoration: none;
+}
+#footer{
+    text-align: center;
+    padding-top: 20px;
+}
+#footer a{
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #666;
+}
+#footer .copyright{
+    margin-top: 15px;
+}

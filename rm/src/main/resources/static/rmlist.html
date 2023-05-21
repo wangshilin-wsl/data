@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>emplist</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="top_content"> 
+				<div id="header">
+					<div id="rightheader">
+						<p>
+							2009/11/20 
+							<br />
+							<a href="javascript:;" @click="logout">安全退出</a>
+						</p>
+					</div>
+					<div id="topheader">
+						<h1 id="title">
+							<a href="/rmlist.html">main</a>
+						</h1>
+					</div>
+					<div id="navigation">
+					</div>
+				</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						Welcome  {{user.realname}}!
+					</h1>
+					<table class="table">
+						<tr class="table_header">
+							<td>
+								ID
+							</td>
+							<td>
+								Name
+							</td>
+							<td>
+								Degree
+							</td>
+							<td>
+								School
+							</td>
+							<td>
+								Hobby
+							</td>
+							<td>
+								Operation
+							</td>
+						</tr>
+						<tr  v-for="(rm,index) in rms" :key="rm.id" :class="index%2==0? 'row1': 'row2'">
+							<td>
+								{{rm.id}}
+							</td>
+							<td>
+								{{rm.name}}
+							</td>
+							<td>
+								{{rm.degree}}
+							</td>
+							<td>
+								{{rm.school}}
+							</td>
+							<td>
+								{{rm.hobby}}
+							</td>
+							<td>
+								<a href="javascript:;" @click="delEmp(rm.id)">delete rm</a>&nbsp;<a :href="'/updateRm.html?id='+rm.id">update rm</a>
+							</td>
+						</tr>
+					</table>
+					<p>
+						<input type="button" class="button" value="Add Employee" onclick="location='addRm.html'"/>
+					</p>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+				ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/js/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script>
+    var app=new Vue({
+        el: '#wrap',
+        data: {
+			user: {//存放用户登录的信息
+				realname: ""
+			},
+			rms: []
+        },
+		methods: {
+			//安全退出
+            logout(){
+                localStorage.removeItem("user");
+                location.href="/login.html";
+			},
+			//删除员工信息的方法
+			delEmp(id){
+                if(window.confirm("确定删除这条员工信息吗？")){
+                    axios.get("http://localhost:8989/rm/delete?id="+id).then(res=>{
+                        if(res.data.state){
+                            alert(res.data.msg+",点击确定刷新数据!");
+                            this.findAll();
+                        }else{
+                            alert(res.data.msg);
+                        }
+                    });
+				}
+			},
+			//查询所有员工的方法
+			findAll(){
+                //查询所有员工
+                axios.get("http://localhost:8989/rm/findAll").then(res=>{
+                    this.rms=res.data;
+                });
+			}
+		},
+		created(){//生命周期函数
+            var userString = localStorage.getItem("user");
+            if(userString!=null){
+                var user = JSON.parse(userString);
+                //console.log(user);
+                this.user=user;
+			}else{
+				alert("您尚未登录，点击确定跳转至登录界面！");
+                location.href="/login.html";
+			}
+			this.findAll();
+        }
+	});
+</script>
